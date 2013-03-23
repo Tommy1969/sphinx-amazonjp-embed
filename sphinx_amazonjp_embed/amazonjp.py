@@ -5,7 +5,7 @@ from xml.sax import saxutils
 from docutils import nodes
 from docutils.parsers import rst
 
-from . import url
+from . import url, errors
 
 
 
@@ -22,6 +22,9 @@ POST_TAG = '" style="width:120px;height:240px;" scrolling="no" marginwidth="0" m
 def visit(self, node):
 
     affiliate_id = self.builder.config.amazonjp_affiliate_id
+
+    if affiliate_id is None:
+        raise errors.AmazonJPError('affiliate id not specified. set your affiliate id to amazonjp_affiliate_id in conf.py')
 
     query = url.build_query(node.url, affiliate_id, node.options)
 

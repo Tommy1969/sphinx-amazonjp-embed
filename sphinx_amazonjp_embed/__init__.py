@@ -8,14 +8,21 @@ First of all, add `sphinx_tweet_embed` to sphinx extension list in conf.py
 
 .. code-block:: python
 
-   extensions = ['sphinx_tweet_embed']
+   extensions = ['sphinx_amazonjp_embed']
 
 
-then use `tweet` directive.
+then set amazonjp_affiliate_id in conf.py
+
+.. code-block:: python
+
+   amazonjp_affiliate_id = 'xxxxx-XX'
+
+
+next, use `amazonjp` directive.
 
 .. code-block:: rst
 
-   .. tweet:: https://twitter.com/pypi/status/315214320826978305
+   .. amazonjp:: http://www.amazon.co.jp/dp/477415539X
 
 
 finally, build your sphinx project.

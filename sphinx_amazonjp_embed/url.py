@@ -4,11 +4,7 @@ import re
 import urlparse
 import urllib
 
-from sphinx import errors
-
-class AmazonJPParseError(errors.SphinxError):
-    category = 'AmazonJPError'
-
+from . import errors
 
 
 DP_REGEX = re.compile(ur'/dp/([\da-zA-Z]+)([^0-9a-zA-Z]|$)')
@@ -69,7 +65,7 @@ def build_query(url, afid, options):
     dp = parse_dp_from_url(url)
 
     if dp is None:
-        raise AmazonJPParseError('product code parse failed')
+        raise errors.AmazonJPError('product code parse failed: ' + url)
 
     attrs = [('asins', dp),
              ('bg1', 'FFFFFF'),
