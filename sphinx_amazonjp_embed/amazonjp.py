@@ -1,10 +1,12 @@
 #-*- coding:utf-8 -*-
 
-from docutils import nodes
+from xml.sax import saxutils
 
+from docutils import nodes
 from docutils.parsers import rst
 
 from . import url
+
 
 
 class amazonjp(nodes.General, nodes.Element):
@@ -13,7 +15,7 @@ class amazonjp(nodes.General, nodes.Element):
 
 
 PRE_TAG = '<iframe src="http://rcm-jp.amazon.co.jp/e/cm?'
-POST_TAG = '" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>'
+POST_TAG = '" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"> </iframe>'
 
 
 
@@ -23,9 +25,9 @@ def visit(self, node):
 
     query = url.build_query(node.url, affiliate_id, node.options)
 
-    print PRE_TAG + query + POST_TAG
+    tag = PRE_TAG + saxutils.escape(query) + POST_TAG
 
-    self.body.append(PRE_TAG + query + POST_TAG)
+    self.body.append(tag)
 
 
 

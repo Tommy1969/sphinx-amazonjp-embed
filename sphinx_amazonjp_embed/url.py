@@ -4,25 +4,32 @@ import re
 import urlparse
 import urllib
 
+from sphinx import errors
 
-DP_REGEX = re.compile(ur'/dp/([\da-zA-Z]+)[^0-9a-zA-Z]')
+class AmazonJPParseError(errors.SphinxError):
+    category = 'AmazonJPError'
+
+
+
+DP_REGEX = re.compile(ur'/dp/([\da-zA-Z]+)([^0-9a-zA-Z]|$)')
 
 
 
 def parse_dp_from_url(url):
     u'''
-    amazon の URL から /dp/${なんか数列} を取ってくる
+    amazon の URL から /dp/${なんか数列} を取ってくる。
+    URL じゃなければそのまま返す
     '''
+
+    if not url.startswith('http://') and not url.startswith('https://'):
+        return url
 
     parsed = urlparse.urlparse(url)
 
     match = DP_REGEX.search(parsed.path)
 
     if match:
-
         return match.group(1)
-
-
 
 
 
@@ -57,9 +64,12 @@ OPTIONS = [Option(key='same_window', attr='lt1', values=('_blank', '_top')),
            SizeOption()]
 
 
-def build_query(url, id, options):
+def build_query(url, afid, options):
 
     dp = parse_dp_from_url(url)
+
+    if dp is None:
+        raise AmazonJPParseError('product code parse failed')
 
     attrs = [('asins', dp),
              ('bg1', 'FFFFFF'),
@@ -72,8 +82,8 @@ def build_query(url, id, options):
              ('f', 'ifr'),
              ('ref', 'ss_til')]
 
-    if id is not None:
-        attrs.append(('t', 'shomah4a-22'))
+    if afid is not None:
+        attrs.append(('t', afid))
 
     for opt in OPTIONS:
         attrs.append(opt.get_option(options))
