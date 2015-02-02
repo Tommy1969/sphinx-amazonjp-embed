@@ -1,10 +1,10 @@
 #-*- coding:utf-8 -*-
 u'''
-embedding twitter's tweet in sphinx
+embedding amazon.co.jp in sphinx
 
 usage:
 
-First of all, add `sphinx_tweet_embed` to sphinx extension list in conf.py
+First of all, add `sphinx_amazonjp_embed` to sphinx extension list in conf.py
 
 .. code-block:: python
 
