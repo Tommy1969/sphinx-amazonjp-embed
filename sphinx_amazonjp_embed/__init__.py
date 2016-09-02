@@ -44,11 +44,10 @@ def setup(app):
 
     from . import amazonjp
 
-    app.add_javascript('http://platform.twitter.com/widgets.js')
+    app.add_javascript('https://platform.twitter.com/widgets.js')
 
     app.add_node(amazonjp.amazonjp,
                  html=(amazonjp.visit, amazonjp.depart))
     app.add_directive('amazonjp', amazonjp.AmazonJPDirective)
 
     app.add_config_value('amazonjp_affiliate_id', None, 'html')
-

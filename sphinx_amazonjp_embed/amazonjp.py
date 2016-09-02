@@ -14,7 +14,7 @@ class amazonjp(nodes.General, nodes.Element):
 
 
 
-PRE_TAG = '<iframe src="http://rcm-jp.amazon.co.jp/e/cm?'
+PRE_TAG = '<iframe src="https://rcm-jp.amazon.co.jp/e/cm?'
 POST_TAG = '" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"> </iframe>'
 
 
@@ -64,4 +64,3 @@ class AmazonJPDirective(rst.Directive):
         node.options = self.options
 
         return [node]
-
