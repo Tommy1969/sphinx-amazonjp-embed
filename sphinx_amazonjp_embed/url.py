@@ -1,15 +1,12 @@
 #-*- coding:utf-8 -*-
 
+from __future__ import unicode_literals
+
+import six
 import re
-import urlparse
-import urllib
+from six.moves.urllib import parse as urlparse
 
-from . import errors
-
-
-DP_REGEX = re.compile(ur'/dp/([\da-zA-Z]+)([^0-9a-zA-Z]|$)')
-
-
+DP_REGEX = re.compile(r'/dp/([\da-zA-Z]+)([^0-9a-zA-Z]|$)')
 
 def parse_dp_from_url(url):
     u'''
@@ -84,6 +81,6 @@ def build_query(url, afid, options):
     for opt in OPTIONS:
         attrs.append(opt.get_option(options))
 
-    query = urllib.urlencode(attrs)
+    query = urlparse.urlencode(attrs)
 
     return query
